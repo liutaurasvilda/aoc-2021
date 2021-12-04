@@ -1,11 +1,11 @@
 package solutions.day04;
 
-final class BingoNum {
+final class BingoNumber {
 
     private final int num;
     private boolean marked;
 
-    BingoNum(int num) {
+    BingoNumber(int num) {
         this.num = num;
         this.marked = false;
     }

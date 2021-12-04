@@ -5,10 +5,10 @@ import java.util.stream.IntStream;
 
 final class BingoBoard {
 
-    private final List<List<BingoNum>> numbers;
+    private final List<List<BingoNumber>> numbers;
     private int lastMarked;
 
-    BingoBoard(List<List<BingoNum>> numbers) {
+    BingoBoard(List<List<BingoNumber>> numbers) {
         this.numbers = numbers;
     }
 
@@ -25,7 +25,7 @@ final class BingoBoard {
 
     boolean rowWinner() {
         return numbers.stream().anyMatch(
-                row -> row.stream().allMatch(BingoNum::isMarked)
+                row -> row.stream().allMatch(BingoNumber::isMarked)
         );
     }
 
@@ -41,7 +41,7 @@ final class BingoBoard {
 
     private int sumOfUnmarked() {
         return numbers.stream().mapToInt(row ->
-                row.stream().filter(bingoNum -> !bingoNum.isMarked()).mapToInt(BingoNum::getNum).sum()
+                row.stream().filter(bingoNum -> !bingoNum.isMarked()).mapToInt(BingoNumber::getNum).sum()
         ).sum();
     }
 }
