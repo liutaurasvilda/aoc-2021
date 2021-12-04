@@ -6,30 +6,24 @@ import java.util.stream.IntStream;
 final class BingoBoard {
 
     private final List<List<BingoNumber>> numbers;
-    private int lastMarked;
+    private int lastNumber;
     private boolean wereWinnerBefore;
 
     BingoBoard(List<List<BingoNumber>> numbers) {
         this.numbers = numbers;
     }
 
-    void mark(int num) {
-        numbers.forEach(row -> row.forEach(bingoNum -> {
-            if (bingoNum.getNum() == num) bingoNum.mark();
+    void mark(int number) {
+        numbers.forEach(row -> row.forEach(bingoNumber -> {
+            if (bingoNumber.getNumber() == number) bingoNumber.mark();
         }));
-        lastMarked = num;
+        lastNumber = number;
     }
 
     boolean isWinner() {
-        return rowWinner() || columnWinner();
-    }
-
-    boolean wereNotWinnerBefore() {
-        return !wereWinnerBefore;
-    }
-
-    void setWereWinnerBefore() {
-        wereWinnerBefore = true;
+        boolean isWinner = (rowWinner() || columnWinner()) && !wereWinnerBefore;
+        if (isWinner) wereWinnerBefore = true;
+        return isWinner;
     }
 
     boolean rowWinner() {
@@ -45,12 +39,9 @@ final class BingoBoard {
     }
 
     int getScore() {
-        return sumOfUnmarked() * lastMarked;
-    }
-
-    private int sumOfUnmarked() {
-        return numbers.stream().mapToInt(row ->
-                row.stream().filter(bingoNum -> !bingoNum.isMarked()).mapToInt(BingoNumber::getNum).sum()
-        ).sum();
+        return numbers.stream().mapToInt(row -> row.stream()
+                .filter(bingoNumber -> !bingoNumber.isMarked())
+                .mapToInt(BingoNumber::getNumber).sum()
+        ).sum() * lastNumber;
     }
 }

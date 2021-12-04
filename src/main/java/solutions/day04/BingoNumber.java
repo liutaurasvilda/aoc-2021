@@ -2,16 +2,16 @@ package solutions.day04;
 
 final class BingoNumber {
 
-    private final int num;
+    private final int number;
     private boolean marked;
 
-    BingoNumber(int num) {
-        this.num = num;
+    BingoNumber(int number) {
+        this.number = number;
         this.marked = false;
     }
 
-    int getNum() {
-        return num;
+    int getNumber() {
+        return number;
     }
 
     boolean isMarked() {
