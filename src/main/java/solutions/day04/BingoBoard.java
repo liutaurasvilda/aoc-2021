@@ -3,18 +3,13 @@ package solutions.day04;
 import java.util.List;
 import java.util.stream.IntStream;
 
-final class Board {
+final class BingoBoard {
 
     private final List<List<BingoNum>> numbers;
     private int lastMarked;
 
-    private Board(List<List<BingoNum>> numbers) {
+    BingoBoard(List<List<BingoNum>> numbers) {
         this.numbers = numbers;
-    }
-
-    // todo
-    static Board parse(List<String> input) {
-        return new Board(null);
     }
 
     void mark(int num) {
