@@ -7,7 +7,7 @@ final class BingoBoard {
 
     private final List<List<BingoNumber>> numbers;
     private int lastNumber;
-    private boolean wereWinnerBefore;
+    private boolean wereWinner;
 
     BingoBoard(List<List<BingoNumber>> numbers) {
         this.numbers = numbers;
@@ -21,8 +21,8 @@ final class BingoBoard {
     }
 
     boolean isWinner() {
-        boolean isWinner = (rowWinner() || columnWinner()) && !wereWinnerBefore;
-        if (isWinner) wereWinnerBefore = true;
+        boolean isWinner = (rowWinner() || columnWinner()) && !wereWinner;
+        if (isWinner) wereWinner = true;
         return isWinner;
     }
 
