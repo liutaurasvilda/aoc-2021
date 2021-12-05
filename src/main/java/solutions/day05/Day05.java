@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class Day05 {
 
     public static void main(String[] args) {
-        List<String> input = ResourceReader.asString("day05_test.txt");
+        List<String> input = ResourceReader.asString("day05.txt");
 
         List<LineSegment> allLines = input.stream().map(e -> {
             String[] splitLine = e.split(" -> ");
