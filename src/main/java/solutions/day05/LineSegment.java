@@ -45,11 +45,6 @@ final class LineSegment {
                     points.add(new Point(i, i));
                 }
             }
-            else if (a.x == a.y && b.x == b.y && a.x > b.y) { // 3,3 -> 1,1
-                for (int i = a.x; i >= b.y; i--) {
-                    points.add(new Point(i, i));
-                }
-            }
             else if (a.x != a.y && b.x != b.y && a.x < b.x && a.y < b.y) { // 1,2 -> 3,4
                 for (int i = 0; i <= b.x-a.x; i++) {
                     points.add(new Point(a.x+i, a.y+i));
