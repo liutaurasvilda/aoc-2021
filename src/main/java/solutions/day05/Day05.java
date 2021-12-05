@@ -25,18 +25,11 @@ public class Day05 {
                 .filter(e -> e.getA().x == e.getB().x || e.getA().y == e.getB().y)
                 .collect(Collectors.toList());
 
-        System.out.println(part1(horVerLines));
-        System.out.println(part2(allLines));
+        System.out.println(countIntersectingPoints(horVerLines));
+        System.out.println(countIntersectingPoints(allLines));
     }
 
-    private static long part1(List<LineSegment> lines) {
-        return lines.stream()
-                .flatMap(e -> e.getPoints().stream())
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                .entrySet().stream().filter(e -> e.getValue() > 1).count();
-    }
-
-    private static long part2(List<LineSegment> lines) {
+    private static long countIntersectingPoints(List<LineSegment> lines) {
         return lines.stream()
                 .flatMap(e -> e.getPoints().stream())
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
