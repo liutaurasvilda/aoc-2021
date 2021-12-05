@@ -30,8 +30,7 @@ public class Day05 {
     }
 
     private static long countIntersectingPoints(List<LineSegment> lines) {
-        return lines.stream()
-                .flatMap(e -> e.getPoints().stream())
+        return lines.stream().flatMap(e -> e.getPoints().stream())
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream().filter(e -> e.getValue() > 1).count();
     }
