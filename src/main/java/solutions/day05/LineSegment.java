@@ -22,27 +22,7 @@ final class LineSegment {
         return b;
     }
 
-    List<Point> getHorVerPoints() {
-        List<Point> points = new ArrayList<>();
-        if (a.x == b.x) {
-            int x = a.x;
-            int minY = Math.min(a.y, b.y);
-            int maxY = Math.max(a.y, b.y);
-            for (int i = minY; i <= maxY; i++) {
-                points.add(new Point(x, i));
-            }
-        } else {
-            int y = a.y;
-            int minX = Math.min(a.x, b.x);
-            int maxX = Math.max(a.x, b.x);
-            for (int i = minX; i <= maxX; i++) {
-                points.add(new Point(i, y));
-            }
-        }
-        return points;
-    }
-
-    List<Point> getAllPoints() {
+    List<Point> getPoints() {
         List<Point> points = new ArrayList<>();
         if (a.x == b.x) {
             int x = a.x;
@@ -58,7 +38,8 @@ final class LineSegment {
             for (int i = minX; i <= maxX; i++) {
                 points.add(new Point(i, y));
             }
-        } else {
+        }
+        else {
             int minX = Math.min(a.x, b.x);
             int maxX = Math.max(a.x, b.x);
             int minY = Math.min(a.y, b.y);
