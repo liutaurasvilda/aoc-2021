@@ -1,8 +1,8 @@
 package solutions.day05;
 
 import java.awt.Point;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 final class LineSegment {
 
@@ -22,8 +22,8 @@ final class LineSegment {
         return b;
     }
 
-    Set<Point> getPoints() {
-        Set<Point> points = new HashSet<>();
+    List<Point> getPoints() {
+        List<Point> points = new ArrayList<>();
         if (a.x == b.x) {
             int x = a.x;
             int minY = Math.min(a.y, b.y);
@@ -40,13 +40,5 @@ final class LineSegment {
             }
         }
         return points;
-    }
-
-    @Override
-    public String toString() {
-        return "LineSegment{" +
-                "a=" + a +
-                ", b=" + b +
-                '}';
     }
 }

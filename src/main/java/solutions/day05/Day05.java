@@ -3,16 +3,14 @@ package solutions.day05;
 import util.ResourceReader;
 
 import java.awt.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Day05 {
 
     public static void main(String[] args) {
-        List<String> input = ResourceReader.asString("day05_test.txt");
+        List<String> input = ResourceReader.asString("day05.txt");
 
         List<LineSegment> lines = input.stream().map(e -> {
             String[] splitLine = e.split(" -> ");
@@ -31,15 +29,9 @@ public class Day05 {
     }
 
     private static long part1(List<LineSegment> lines) {
-        List<Set<Point>> points = lines.stream()
-                .map(LineSegment::getPoints)
-                .collect(Collectors.toList());
-
-        int totalSize = points.stream().mapToInt(Set::size).sum();
-
-        Set<Point> union = new HashSet<>();
-        IntStream.range(0, points.size()).forEach(i -> union.addAll(points.get(i)));
-
-        return totalSize - union.size();
+        return lines.stream()
+                .flatMap(e -> e.getPoints().stream())
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .entrySet().stream().filter(e -> e.getValue() > 1).count();
     }
 }
