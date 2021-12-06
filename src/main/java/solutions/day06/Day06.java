@@ -20,7 +20,6 @@ public class Day06 {
             fish = fish.stream()
                     .map(Fish::tick)
                     .flatMap(Collection::stream)
-                    .filter(Optional::isPresent)
                     .map(Optional::get)
                     .collect(Collectors.toList());
         }

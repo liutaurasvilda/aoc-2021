@@ -27,9 +27,4 @@ final class Fish {
     int days() {
         return days;
     }
-
-    @Override
-    public String toString() {
-        return String.valueOf(days);
-    }
 }
