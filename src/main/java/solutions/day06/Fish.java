@@ -7,7 +7,7 @@ import java.util.Optional;
 
 final class Fish {
 
-    private int days;
+    private final int days;
 
     Fish(int days) {
         this.days = days;
@@ -15,13 +15,12 @@ final class Fish {
 
     List<Optional<Fish>> tick() {
         if (days == 0) {
-            days = 6;
             return Arrays.asList(
                     Optional.of(new Fish(6)),
                     Optional.of(new Fish(8))
             );
         }
-        return Collections.singletonList(Optional.of(new Fish(--days)));
+        return Collections.singletonList(Optional.of(new Fish(days - 1)));
     }
 
     int days() {
