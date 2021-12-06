@@ -24,6 +24,10 @@ final class Fish {
         return Collections.singletonList(Optional.of(new Fish(--days)));
     }
 
+    int days() {
+        return days;
+    }
+
     @Override
     public String toString() {
         return String.valueOf(days);
