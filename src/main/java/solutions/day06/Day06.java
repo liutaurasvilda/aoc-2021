@@ -14,11 +14,11 @@ public class Day06 {
         List<Fish> fish = Arrays.stream(ResourceReader.asString("day06.txt")
                 .get(0).split(",")).map(e -> new Fish(Integer.parseInt(e))).collect(Collectors.toList());
 
-        System.out.println(part1(fish));
+        System.out.println(simulateLanternfish(fish, 80));
     }
 
-    private static long part1(List<Fish> fish) {
-        for (int i = 0; i < 80; i++) {
+    private static long simulateLanternfish(List<Fish> fish, int days) {
+        for (int i = 0; i < days; i++) {
             fish = fish.stream()
                     .map(Fish::tick)
                     .flatMap(Collection::stream)
