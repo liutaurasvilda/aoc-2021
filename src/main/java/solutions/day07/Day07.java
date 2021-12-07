@@ -25,10 +25,10 @@ public class Day07 {
 
     private static long part1(List<Integer> input, List<Integer> dedup) {
         long min = Integer.MAX_VALUE;
-        for (int i = 0; i < dedup.size(); i++) {
+        for (Integer finish : dedup) {
             long current = 0;
-            for (int j = 0; j < input.size(); j++) {
-                    current += Math.abs(dedup.get(i) - input.get(j));
+            for (Integer start : input) {
+                current += Math.abs(finish - start);
             }
             if (current < min) {
                 min = current;
@@ -39,10 +39,10 @@ public class Day07 {
 
     private static long part2(List<Integer> input, List<Integer> dedup) {
         long min = Integer.MAX_VALUE;
-        for (int i = 0; i < dedup.size(); i++) {
+        for (Integer finish : dedup) {
             long current = 0;
-            for (int j = 0; j < input.size(); j++) {
-                for (int k = 1; k <= Math.abs(dedup.get(i) - input.get(j)); k++) {
+            for (Integer start : input) {
+                for (int k = 1; k <= Math.abs(finish - start); k++) {
                     current += k;
                 }
             }
