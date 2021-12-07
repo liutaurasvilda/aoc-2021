@@ -13,10 +13,9 @@ public class Day07 {
 
     public static void main(String[] args) {
         List<Integer> startValues = ResourceReader.asLineInt("day07.txt");
-        List<Integer> finishValues = new ArrayList<>(new HashSet<>(startValues));
 
-        IntSummaryStatistics stats = finishValues.stream().mapToInt(e -> e).summaryStatistics();
-        finishValues = IntStream.rangeClosed(stats.getMin(), stats.getMax())
+        IntSummaryStatistics stats = startValues.stream().mapToInt(e -> e).summaryStatistics();
+        List<Integer> finishValues = IntStream.rangeClosed(stats.getMin(), stats.getMax())
                 .boxed().collect(Collectors.toList());
 
         System.out.println(part1(startValues, finishValues));
