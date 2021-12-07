@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 public class Day06 {
 
     public static void main(String[] args) {
-        List<Fish> fish = Arrays.stream(ResourceReader.asString("day06.txt")
-                .get(0).split(",")).map(e -> new Fish(Integer.parseInt(e))).collect(Collectors.toList());
+        List<Fish> fish = ResourceReader.asLineInt("day06.txt").stream()
+                .map(Fish::new).collect(Collectors.toList());
 
         System.out.println(part1(new ArrayList<>(fish), 80));
         System.out.println(part2(new ArrayList<>(fish), 256));
