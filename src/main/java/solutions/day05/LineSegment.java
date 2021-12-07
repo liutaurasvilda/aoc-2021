@@ -40,29 +40,21 @@ final class LineSegment {
             }
         }
         else {
-            if (a.x == a.y && b.x == b.y && a.x < b.x) {
-                for (int i = a.x; i <= b.y; i++) {
-                    points.add(new Point(i, i));
-                }
-            }
-            else if (a.x != a.y && b.x != b.y && a.x < b.x && a.y < b.y) {
+            if (a.x < b.x && a.y > b.y) {
                 for (int i = 0; i <= b.x-a.x; i++) {
-                    points.add(new Point(a.x+i, a.y+i));
+                    points.add(new Point(a.x+i, a.y-i));
                 }
-            }
-            else if (a.x != a.y && b.x != b.y && a.x > b.x && a.y > b.y) {
-                for (int i = 0; i <= a.x-b.x; i++) {
-                    points.add(new Point(a.x-i, a.y-i));
-                }
-            }
-            else if (a.x > b.x && a.y < b.y) {
+            } else if (a.x > b.x && a.y < b.y) {
                 for (int i = 0; i <= a.x-b.x; i++) {
                     points.add(new Point(a.x-i, a.y+i));
                 }
-            }
-            else if (a.x < b.x && a.y > b.y) {
+            } else if (a.x < b.x && a.y < b.y) {
                 for (int i = 0; i <= b.x-a.x; i++) {
-                    points.add(new Point(a.x+i, a.y-i));
+                    points.add(new Point(a.x+i, a.y+i));
+                }
+            } else if (a.x > b.x && a.y > b.y) {
+                for (int i = 0; i <= a.x-b.x; i++) {
+                    points.add(new Point(a.x-i, a.y-i));
                 }
             }
         }
