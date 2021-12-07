@@ -12,22 +12,22 @@ import java.util.stream.IntStream;
 public class Day07 {
 
     public static void main(String[] args) {
-        List<Integer> input = ResourceReader.asLineInt("day07.txt");
-        List<Integer> dedup = new ArrayList<>(new HashSet<>(input));
+        List<Integer> startValues = ResourceReader.asLineInt("day07.txt");
+        List<Integer> finishValues = new ArrayList<>(new HashSet<>(startValues));
 
-        IntSummaryStatistics stats = dedup.stream().mapToInt(e -> e).summaryStatistics();
-        List<Integer> enrichedDedup = IntStream.rangeClosed(stats.getMin(), stats.getMax())
+        IntSummaryStatistics stats = finishValues.stream().mapToInt(e -> e).summaryStatistics();
+        finishValues = IntStream.rangeClosed(stats.getMin(), stats.getMax())
                 .boxed().collect(Collectors.toList());
 
-        System.out.println(part1(input, dedup));
-        System.out.println(part2(input, enrichedDedup));
+        System.out.println(part1(startValues, finishValues));
+        System.out.println(part2(startValues, finishValues));
     }
 
-    private static long part1(List<Integer> input, List<Integer> dedup) {
+    private static long part1(List<Integer> startValues, List<Integer> finishValues) {
         long min = Integer.MAX_VALUE;
-        for (Integer finish : dedup) {
+        for (Integer finish : finishValues) {
             long current = 0;
-            for (Integer start : input) {
+            for (Integer start : startValues) {
                 current += Math.abs(finish - start);
             }
             if (current < min) {
@@ -37,11 +37,11 @@ public class Day07 {
         return min;
     }
 
-    private static long part2(List<Integer> input, List<Integer> dedup) {
+    private static long part2(List<Integer> startValues, List<Integer> finishValues) {
         long min = Integer.MAX_VALUE;
-        for (Integer finish : dedup) {
+        for (Integer finish : finishValues) {
             long current = 0;
-            for (Integer start : input) {
+            for (Integer start : startValues) {
                 for (int k = 1; k <= Math.abs(finish - start); k++) {
                     current += k;
                 }
