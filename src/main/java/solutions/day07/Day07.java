@@ -2,14 +2,12 @@ package solutions.day07;
 
 import util.ResourceReader;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Day07 {
+final class Day07 {
 
     public static void main(String[] args) {
         List<Integer> startValues = ResourceReader.asLineInt("day07.txt");

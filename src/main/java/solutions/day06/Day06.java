@@ -5,7 +5,7 @@ import util.ResourceReader;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Day06 {
+final class Day06 {
 
     public static void main(String[] args) {
         List<Fish> fish = ResourceReader.asLineInt("day06.txt").stream()
