@@ -4,17 +4,14 @@ import util.ResourceReader;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Day09 {
 
     public static void main(String[] args) {
-        List<String> input = ResourceReader.asString("day09.txt");
-
+        List<String> input = ResourceReader.asString("day09_test.txt");
         List<List<Integer>> heights = input.stream().map(e -> Arrays.stream(e.split(""))
                 .map(Integer::valueOf).collect(Collectors.toList()))
                 .collect(Collectors.toList());
-
         System.out.println(part1(heights));
         System.out.println(part2(heights));
     }
@@ -28,13 +25,10 @@ public class Day09 {
     private static long part2(List<List<Integer>> heights) {
         Map<Location, Integer> heightMap = buildHeightMap(heights);
         Map<Location, Integer> lowPoints = getLowPoints(heightMap);
-
         List<Integer> basins = lowPoints.entrySet().stream()
                 .map(e -> walk(e.getKey(), e.getValue(), e.getKey().neighbourhood(), heightMap, new HashSet<>()))
                 .sorted().collect(Collectors.toList());
-
-        int basinsSize = basins.size();
-        return (long) basins.get(basinsSize-1) * basins.get(basinsSize-2) * basins.get(basinsSize-3);
+        return basins.subList(basins.size()-3, basins.size()).stream().reduce(1, (a, b) -> a * b);
     }
 
     private static int walk(Location currentLoc, int currentNum, List<Location> neighbours, Map<Location, Integer> heightMap, Set<Location> visited) {

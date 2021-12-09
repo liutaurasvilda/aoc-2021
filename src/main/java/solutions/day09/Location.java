@@ -57,12 +57,4 @@ final class Location {
                     location.columnIndex + columnOffset);
         }
     }
-
-    @Override
-    public String toString() {
-        return "Location{" +
-                "rowIndex=" + rowIndex +
-                ", columnIndex=" + columnIndex +
-                '}';
-    }
 }
