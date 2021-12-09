@@ -1,6 +1,5 @@
 package solutions.day08;
 
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import util.ResourceReader;
 
 import java.util.*;
@@ -9,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class Day08 {
+final class Day08 {
 
     private static final int one = 2;
     private static final int four = 4;
