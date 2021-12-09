@@ -27,19 +27,19 @@ public class Day09 {
         Map<Location, Integer> heightMap = getHeightMap(heights);
         Map<Location, Integer> lowPoints = getLowPoints(heightMap);
         List<Integer> basins = lowPoints.keySet().stream()
-                .map(lowPoint -> walk(lowPoint, heightMap, new HashSet<>()))
+                .map(lowPoint -> basinOf(lowPoint, heightMap, new HashSet<>()))
                 .sorted().collect(Collectors.toList());
         return basins.subList(basins.size()-3, basins.size()).stream().reduce(1, (a, b) -> a * b);
     }
 
-    private static int walk(Location current, Map<Location, Integer> heightMap, Set<Location> visited) {
+    private static int basinOf(Location current, Map<Location, Integer> heightMap, Set<Location> visited) {
         visited.add(current);
         current.neighbourhood().forEach(neighbour -> {
             if (heightMap.get(neighbour) == null || heightMap.get(neighbour) == 9 || visited.contains(neighbour)) {
                 return;
             }
             if (heightMap.get(current) + 1 == heightMap.get(neighbour)) {
-                walk(neighbour, heightMap, visited);
+                basinOf(neighbour, heightMap, visited);
             }
         });
         return visited.size();
