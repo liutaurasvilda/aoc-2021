@@ -4,11 +4,12 @@ import util.ResourceReader;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Day09 {
 
     public static void main(String[] args) {
-        List<String> input = ResourceReader.asString("day09.txt");
+        List<String> input = ResourceReader.asString("day09_test.txt");
 
         List<List<Integer>> heights = input.stream().map(e -> Arrays.stream(e.split(""))
                 .map(Integer::valueOf).collect(Collectors.toList()))
@@ -27,50 +28,40 @@ public class Day09 {
     private static long part2(List<List<Integer>> heights) {
         Map<Location, Integer> heightMap = buildHeightMap(heights);
         Map<Location, Integer> lowPoints = getLowPoints(heightMap);
-        Map<Location, Integer> basins = new HashMap<>();
+
+        List<Integer> basins = new ArrayList<>();
 
         for (Map.Entry<Location, Integer> lowPoint : lowPoints.entrySet()) {
-            walk(lowPoint.getKey(), lowPoint.getValue(), lowPoint.getKey().neighborhood(), basins, heightMap, new HashSet<>());
+            basins.add(walk(lowPoint.getKey(), lowPoint.getValue(),
+                    lowPoint.getKey().neighbourhood(), heightMap, new HashSet<>()));
         }
 
-        List<Integer> topBasins = new ArrayList<>(basins.values()).stream().sorted().collect(Collectors.toList());
-        int topBasinsSize = topBasins.size();
-        return (long)topBasins.get(topBasinsSize-1) * topBasins.get(topBasinsSize-2) * topBasins.get(topBasinsSize-3);
+        List<Integer> sortedBasins = basins.stream().sorted().collect(Collectors.toList());
+        int basinsSize = sortedBasins.size();
+        return (long) sortedBasins.get(basinsSize-1) * sortedBasins.get(basinsSize-2) * sortedBasins.get(basinsSize-3);
     }
 
-    private static void walk(Location lowPointLoc, int num, List<Location> neighbours,
-                             Map<Location, Integer> basins, Map<Location, Integer> heightMap, Set<Location> visited) {
-        incrementBasin(lowPointLoc, basins);
+    private static int walk(Location currentLoc, int currentNum, List<Location> neighbours, Map<Location, Integer> heightMap, Set<Location> visited) {
+        visited.add(currentLoc);
         for (Location neighbour : neighbours) {
             if (heightMap.get(neighbour) == null || heightMap.get(neighbour) == 9 || visited.contains(neighbour)) {
                 continue;
             }
-            if (num+1 == heightMap.get(neighbour)) {
-                visited.add(neighbour);
-                walk(lowPointLoc, heightMap.get(neighbour), neighbour.neighborhood(), basins, heightMap, visited);
+            if (currentNum + 1 == heightMap.get(neighbour)) {
+                walk(neighbour, heightMap.get(neighbour), neighbour.neighbourhood(), heightMap, visited);
             }
         }
-    }
-
-    private static void incrementBasin(Location lowPointLoc, Map<Location, Integer> basins) {
-        if (basins.containsKey(lowPointLoc)) {
-            basins.put(lowPointLoc, basins.get(lowPointLoc) + 1);
-        } else {
-            basins.put(lowPointLoc, 1);
-        }
+        return visited.size();
     }
 
     private static Map<Location, Integer> getLowPoints(Map<Location, Integer> heightMap) {
-        Map<Location, Integer> lowPoints = new HashMap<>();
-        for (Map.Entry<Location, Integer> current : heightMap.entrySet()) {
-            if (current.getKey().neighborhood().stream()
-                    .map(heightMap::get)
-                    .filter(Objects::nonNull)
-                    .allMatch(neighbour -> current.getValue() < neighbour)) {
-                lowPoints.put(current.getKey(), current.getValue());
-            }
-        }
-        return lowPoints;
+        return heightMap.entrySet()
+                .stream()
+                .filter(e -> e.getKey().neighbourhood().stream()
+                        .map(heightMap::get)
+                        .filter(Objects::nonNull)
+                        .allMatch(n -> e.getValue() < n))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     private static Map<Location, Integer> buildHeightMap(List<List<Integer>> heights) {

@@ -19,9 +19,9 @@ final class Location {
         return new Location(rowIndex, columnIndex);
     }
 
-    List<Location> neighborhood() {
+    List<Location> neighbourhood() {
         return Arrays.stream(Direction.values())
-                .map(direction -> direction.neighborOf(this))
+                .map(direction -> direction.neighbourOf(this))
                 .collect(Collectors.toList());
     }
 
@@ -52,7 +52,7 @@ final class Location {
             this.columnOffset = columnOffset;
         }
 
-        private Location neighborOf(Location location) {
+        private Location neighbourOf(Location location) {
             return Location.of(location.rowIndex + rowOffset,
                     location.columnIndex + columnOffset);
         }
