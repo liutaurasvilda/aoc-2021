@@ -44,16 +44,6 @@ public class Day09 {
         return visited.size();
     }
 
-    private static Map<Location, Integer> getLowPoints(Map<Location, Integer> heightMap) {
-        return heightMap.entrySet()
-                .stream()
-                .filter(e -> e.getKey().neighbourhood().stream()
-                        .map(heightMap::get)
-                        .filter(Objects::nonNull)
-                        .allMatch(n -> e.getValue() < n))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-    }
-
     private static Map<Location, Integer> buildHeightMap(List<List<Integer>> heights) {
         Map<Location, Integer> heightmap = new HashMap<>();
         for (int i = 0; i < heights.size(); i++) {
@@ -62,5 +52,14 @@ public class Day09 {
             }
         }
         return heightmap;
+    }
+
+    private static Map<Location, Integer> getLowPoints(Map<Location, Integer> heightMap) {
+        return heightMap.entrySet().stream()
+                .filter(e -> e.getKey().neighbourhood().stream()
+                        .map(heightMap::get)
+                        .filter(Objects::nonNull)
+                        .allMatch(n -> e.getValue() < n))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }
