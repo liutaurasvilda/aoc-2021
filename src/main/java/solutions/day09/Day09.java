@@ -9,8 +9,9 @@ public class Day09 {
 
     public static void main(String[] args) {
         List<String> input = ResourceReader.asString("day09.txt");
-        List<List<Integer>> heights = input.stream().map(e -> Arrays.stream(e.split(""))
-                .map(Integer::valueOf).collect(Collectors.toList()))
+        List<List<Integer>> heights = input.stream()
+                .map(e -> Arrays.stream(e.split(""))
+                        .map(Integer::valueOf).collect(Collectors.toList()))
                 .collect(Collectors.toList());
         System.out.println(part1(heights));
         System.out.println(part2(heights));
@@ -31,14 +32,14 @@ public class Day09 {
         return basins.subList(basins.size()-3, basins.size()).stream().reduce(1, (a, b) -> a * b);
     }
 
-    private static int walk(Location current, Map<Location, Integer> heightmap, Set<Location> visited) {
+    private static int walk(Location current, Map<Location, Integer> heightMap, Set<Location> visited) {
         visited.add(current);
         current.neighbourhood().forEach(neighbour -> {
-            if (heightmap.get(neighbour) == null || heightmap.get(neighbour) == 9 || visited.contains(neighbour)) {
+            if (heightMap.get(neighbour) == null || heightMap.get(neighbour) == 9 || visited.contains(neighbour)) {
                 return;
             }
-            if (heightmap.get(current) + 1 == heightmap.get(neighbour)) {
-                walk(neighbour, heightmap, visited);
+            if (heightMap.get(current) + 1 == heightMap.get(neighbour)) {
+                walk(neighbour, heightMap, visited);
             }
         });
         return visited.size();
