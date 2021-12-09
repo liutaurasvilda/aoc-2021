@@ -28,8 +28,8 @@ public class Day09 {
         Map<Location, Integer> lowPoints = getLowPoints(heightMap);
         List<Integer> basins = lowPoints.keySet().stream()
                 .map(lowPoint -> basinOf(lowPoint, heightMap, new HashSet<>()))
-                .sorted().collect(Collectors.toList());
-        return basins.subList(basins.size()-3, basins.size()).stream().reduce(1, (a, b) -> a * b);
+                .sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        return basins.subList(0, 3).stream().reduce(1, (a, b) -> a * b);
     }
 
     private static int basinOf(Location current, Map<Location, Integer> heightMap, Set<Location> visited) {
