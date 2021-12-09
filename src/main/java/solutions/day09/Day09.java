@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 public class Day09 {
 
     public static void main(String[] args) {
-        List<String> input = ResourceReader.asString("day09_test.txt");
+        List<String> input = ResourceReader.asString("day09.txt");
 
         List<List<Integer>> heights = input.stream().map(e -> Arrays.stream(e.split(""))
                 .map(Integer::valueOf).collect(Collectors.toList()))
@@ -29,16 +29,12 @@ public class Day09 {
         Map<Location, Integer> heightMap = buildHeightMap(heights);
         Map<Location, Integer> lowPoints = getLowPoints(heightMap);
 
-        List<Integer> basins = new ArrayList<>();
+        List<Integer> basins = lowPoints.entrySet().stream()
+                .map(e -> walk(e.getKey(), e.getValue(), e.getKey().neighbourhood(), heightMap, new HashSet<>()))
+                .sorted().collect(Collectors.toList());
 
-        for (Map.Entry<Location, Integer> lowPoint : lowPoints.entrySet()) {
-            basins.add(walk(lowPoint.getKey(), lowPoint.getValue(),
-                    lowPoint.getKey().neighbourhood(), heightMap, new HashSet<>()));
-        }
-
-        List<Integer> sortedBasins = basins.stream().sorted().collect(Collectors.toList());
-        int basinsSize = sortedBasins.size();
-        return (long) sortedBasins.get(basinsSize-1) * sortedBasins.get(basinsSize-2) * sortedBasins.get(basinsSize-3);
+        int basinsSize = basins.size();
+        return (long) basins.get(basinsSize-1) * basins.get(basinsSize-2) * basins.get(basinsSize-3);
     }
 
     private static int walk(Location currentLoc, int currentNum, List<Location> neighbours, Map<Location, Integer> heightMap, Set<Location> visited) {
