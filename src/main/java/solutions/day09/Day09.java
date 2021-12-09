@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public class Day09 {
 
     public static void main(String[] args) {
-        List<String> input = ResourceReader.asString("day09_test.txt");
+        List<String> input = ResourceReader.asString("day09.txt");
         List<List<Integer>> heights = input.stream().map(e -> Arrays.stream(e.split(""))
                 .map(Integer::valueOf).collect(Collectors.toList()))
                 .collect(Collectors.toList());
@@ -25,22 +25,22 @@ public class Day09 {
     private static long part2(List<List<Integer>> heights) {
         Map<Location, Integer> heightMap = buildHeightMap(heights);
         Map<Location, Integer> lowPoints = getLowPoints(heightMap);
-        List<Integer> basins = lowPoints.entrySet().stream()
-                .map(e -> walk(e.getKey(), e.getValue(), e.getKey().neighbourhood(), heightMap, new HashSet<>()))
+        List<Integer> basins = lowPoints.keySet().stream()
+                .map(lowPoint -> walk(lowPoint, heightMap, new HashSet<>()))
                 .sorted().collect(Collectors.toList());
         return basins.subList(basins.size()-3, basins.size()).stream().reduce(1, (a, b) -> a * b);
     }
 
-    private static int walk(Location currentLoc, int currentNum, List<Location> neighbours, Map<Location, Integer> heightMap, Set<Location> visited) {
-        visited.add(currentLoc);
-        for (Location neighbour : neighbours) {
-            if (heightMap.get(neighbour) == null || heightMap.get(neighbour) == 9 || visited.contains(neighbour)) {
-                continue;
+    private static int walk(Location current, Map<Location, Integer> heightmap, Set<Location> visited) {
+        visited.add(current);
+        current.neighbourhood().forEach(neighbour -> {
+            if (heightmap.get(neighbour) == null || heightmap.get(neighbour) == 9 || visited.contains(neighbour)) {
+                return;
             }
-            if (currentNum + 1 == heightMap.get(neighbour)) {
-                walk(neighbour, heightMap.get(neighbour), neighbour.neighbourhood(), heightMap, visited);
+            if (heightmap.get(current) + 1 == heightmap.get(neighbour)) {
+                walk(neighbour, heightmap, visited);
             }
-        }
+        });
         return visited.size();
     }
 
