@@ -18,13 +18,13 @@ public class Day09 {
     }
 
     private static long part1(List<List<Integer>> heights) {
-        Map<Location, Integer> heightMap = buildHeightMap(heights);
+        Map<Location, Integer> heightMap = getHeightMap(heights);
         Map<Location, Integer> lowPoints = getLowPoints(heightMap);
         return lowPoints.values().stream().mapToInt(integer -> integer + 1).sum();
     }
 
     private static long part2(List<List<Integer>> heights) {
-        Map<Location, Integer> heightMap = buildHeightMap(heights);
+        Map<Location, Integer> heightMap = getHeightMap(heights);
         Map<Location, Integer> lowPoints = getLowPoints(heightMap);
         List<Integer> basins = lowPoints.keySet().stream()
                 .map(lowPoint -> walk(lowPoint, heightMap, new HashSet<>()))
@@ -54,7 +54,7 @@ public class Day09 {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
-    private static Map<Location, Integer> buildHeightMap(List<List<Integer>> heights) {
+    private static Map<Location, Integer> getHeightMap(List<List<Integer>> heights) {
         Map<Location, Integer> heightmap = new HashMap<>();
         for (int i = 0; i < heights.size(); i++) {
             for (int j = 0; j < heights.get(i).size(); j++) {
