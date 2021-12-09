@@ -1,8 +1,9 @@
 package solutions.day09;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 final class Location {
 
@@ -18,9 +19,10 @@ final class Location {
         return new Location(rowIndex, columnIndex);
     }
 
-    Stream<Location> neighborhood() {
+    List<Location> neighborhood() {
         return Arrays.stream(Direction.values())
-                .map(direction -> direction.neighborOf(this));
+                .map(direction -> direction.neighborOf(this))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -54,5 +56,13 @@ final class Location {
             return Location.of(location.rowIndex + rowOffset,
                     location.columnIndex + columnOffset);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "rowIndex=" + rowIndex +
+                ", columnIndex=" + columnIndex +
+                '}';
     }
 }
