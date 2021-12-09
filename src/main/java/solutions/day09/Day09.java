@@ -38,7 +38,7 @@ public class Day09 {
             if (heightMap.get(neighbour) == null || heightMap.get(neighbour) == 9 || visited.contains(neighbour)) {
                 return;
             }
-            if (heightMap.get(current) + 1 == heightMap.get(neighbour)) {
+            if (heightMap.get(neighbour) > heightMap.get(current)) {
                 basinOf(neighbour, heightMap, visited);
             }
         });
