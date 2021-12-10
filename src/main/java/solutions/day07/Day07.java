@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 final class Day07 {
 
     public static void main(String[] args) {
-        List<Integer> startValues = ResourceReader.asLineInt("day07.txt");
+        List<Integer> startValues = ResourceReader.asIntLine("day07.txt");
 
         IntSummaryStatistics stats = startValues.stream().mapToInt(e -> e).summaryStatistics();
         List<Integer> finishValues = IntStream.rangeClosed(stats.getMin(), stats.getMax())

@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 final class Day06 {
 
     public static void main(String[] args) {
-        List<Fish> fish = ResourceReader.asLineInt("day06.txt").stream()
+        List<Fish> fish = ResourceReader.asIntLine("day06.txt").stream()
                 .map(Fish::new).collect(Collectors.toList());
 
         System.out.println(part1(new ArrayList<>(fish), 80));

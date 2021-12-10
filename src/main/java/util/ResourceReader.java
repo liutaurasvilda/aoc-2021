@@ -16,13 +16,33 @@ public final class ResourceReader {
                 .collect(Collectors.toList());
     }
 
+    public static List<List<String>> asStringList(String resourceName) {
+        return readResource(resourceName)
+                .map(e -> Arrays.stream(e.split(""))
+                        .collect(Collectors.toList()))
+                .collect(Collectors.toList());
+    }
+
+    public static List<String> asStringLine(String resourceName) {
+        return Arrays.stream(ResourceReader.asString(resourceName)
+                        .get(0).split(","))
+                .collect(Collectors.toList());
+    }
+
     public static List<Integer> asInt(String resourceName) {
         return readResource(resourceName)
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
 
-    public static List<Integer> asLineInt(String resourceName) {
+    public static List<List<Integer>> asIntList(String resourceName) {
+        return readResource(resourceName)
+                .map(e -> Arrays.stream(e.split(""))
+                        .map(Integer::valueOf).collect(Collectors.toList()))
+                .collect(Collectors.toList());
+    }
+
+    public static List<Integer> asIntLine(String resourceName) {
         return Arrays.stream(ResourceReader.asString(resourceName)
                 .get(0).split(",")).map(Integer::parseInt)
                 .collect(Collectors.toList());

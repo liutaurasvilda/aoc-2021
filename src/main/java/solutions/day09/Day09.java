@@ -5,14 +5,10 @@ import util.ResourceReader;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Day09 {
+final class Day09 {
 
     public static void main(String[] args) {
-        List<String> input = ResourceReader.asString("day09.txt");
-        List<List<Integer>> heights = input.stream()
-                .map(e -> Arrays.stream(e.split(""))
-                        .map(Integer::valueOf).collect(Collectors.toList()))
-                .collect(Collectors.toList());
+        List<List<Integer>> heights = ResourceReader.asIntList("day09.txt");
         System.out.println(part1(heights));
         System.out.println(part2(heights));
     }
