@@ -7,7 +7,7 @@ import java.util.*;
 final class Day10 {
 
     public static void main(String[] args) {
-        List<List<String>> input = ResourceReader.asStringList("day10.txt");
+        List<List<String>> input = ResourceReader.asStringList("day10_test.txt");
 
         System.out.println(part1(input));
     }
@@ -28,9 +28,6 @@ final class Day10 {
                         stack.push(brace);
                         break;
                     case ")":
-                        if (stack.isEmpty()) {
-                            throw new RuntimeException("Stack is empty");
-                        }
                         if (stack.peek().equals("(")) {
                             stack.pop();
                         } else {
@@ -39,9 +36,6 @@ final class Day10 {
                         }
                         break;
                     case "]":
-                        if (stack.isEmpty()) {
-                            throw new RuntimeException("Stack is empty");
-                        }
                         if (stack.peek().equals("[")) {
                             stack.pop();
                         } else {
@@ -50,9 +44,6 @@ final class Day10 {
                         }
                         break;
                     case "}":
-                        if (stack.isEmpty()) {
-                            throw new RuntimeException("Stack is empty");
-                        }
                         if (stack.peek().equals("{")) {
                             stack.pop();
                         } else {
@@ -61,9 +52,6 @@ final class Day10 {
                         }
                         break;
                     case ">":
-                        if (stack.isEmpty()) {
-                            throw new RuntimeException("Stack is empty");
-                        }
                         if (stack.peek().equals("<")) {
                             stack.pop();
                         } else {
