@@ -7,15 +7,13 @@ import java.util.*;
 final class Day10 {
 
     public static void main(String[] args) {
-        List<List<String>> input = ResourceReader.asStringList("day10_test.txt");
-
+        List<List<String>> input = ResourceReader.asStringList("day10.txt");
         System.out.println(part1(input));
     }
 
     private static long part1(List<List<String>> input) {
-        Deque<String> stack = new ArrayDeque<>();
         Map<String, Integer> counts = new HashMap<>();
-
+        Deque<String> stack;
         for (List<String> strings : input) {
             stack = new ArrayDeque<>();
             inner:
@@ -64,17 +62,26 @@ final class Day10 {
         }
         long sum = 0;
         for (Map.Entry<String, Integer> e : counts.entrySet()) {
-            if (e.getKey().equals(")")) {
-                sum += e.getValue() * 3L;
-            } else if (e.getKey().equals("]")) {
-                sum += e.getValue() * 57L;
-            } else if (e.getKey().equals("}")) {
-                sum += e.getValue() * 1197L;
-            } else if (e.getKey().equals(">")) {
-                sum += e.getValue() * 25137L;
+            switch (e.getKey()) {
+                case ")":
+                    sum += e.getValue() * 3L;
+                    break;
+                case "]":
+                    sum += e.getValue() * 57L;
+                    break;
+                case "}":
+                    sum += e.getValue() * 1197L;
+                    break;
+                case ">":
+                    sum += e.getValue() * 25137L;
+                    break;
             }
         }
         return sum;
+    }
+
+    private static long part2() {
+        return 0;
     }
 
     private static void register(Map<String, Integer> counts, String k) {
