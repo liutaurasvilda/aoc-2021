@@ -15,17 +15,17 @@ final class Day11 {
         System.out.println(part2(input));
     }
 
-    private static long part1(List<List<Integer>> input) {
+    private static int part1(List<List<Integer>> input) {
         Map<Location, Energy> energyLevels = getEnergyLevels(input);
         AtomicInteger flashCount = new AtomicInteger();
         AtomicInteger stepsCount = new AtomicInteger();
         while (stepsCount.getAndIncrement() < 100) {
             step(energyLevels, flashCount);
         }
-        return flashCount.longValue();
+        return flashCount.get();
     }
 
-    private static long part2(List<List<Integer>> input) {
+    private static int part2(List<List<Integer>> input) {
         Map<Location, Energy> energyLevels = getEnergyLevels(input);
         AtomicInteger flashCount = new AtomicInteger();
         AtomicInteger stepsCount = new AtomicInteger();
