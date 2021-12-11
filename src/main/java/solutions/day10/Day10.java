@@ -28,6 +28,7 @@ final class Day10 {
                         stack.push(brace);
                         break;
                     case ")":
+                        assert stack.peek() != null;
                         if (stack.peek().equals("(")) {
                             stack.pop();
                         } else {
@@ -36,6 +37,7 @@ final class Day10 {
                         }
                         break;
                     case "]":
+                        assert stack.peek() != null;
                         if (stack.peek().equals("[")) {
                             stack.pop();
                         } else {
@@ -44,6 +46,7 @@ final class Day10 {
                         }
                         break;
                     case "}":
+                        assert stack.peek() != null;
                         if (stack.peek().equals("{")) {
                             stack.pop();
                         } else {
@@ -52,6 +55,7 @@ final class Day10 {
                         }
                         break;
                     case ">":
+                        assert stack.peek() != null;
                         if (stack.peek().equals("<")) {
                             stack.pop();
                         } else {
@@ -98,6 +102,7 @@ final class Day10 {
                         stack.push(brace);
                         break;
                     case ")":
+                        assert stack.peek() != null;
                         if (stack.peek().equals("(")) {
                             stack.pop();
                         } else {
@@ -106,6 +111,7 @@ final class Day10 {
                         }
                         break;
                     case "]":
+                        assert stack.peek() != null;
                         if (stack.peek().equals("[")) {
                             stack.pop();
                         } else {
@@ -114,6 +120,7 @@ final class Day10 {
                         }
                         break;
                     case "}":
+                        assert stack.peek() != null;
                         if (stack.peek().equals("{")) {
                             stack.pop();
                         } else {
@@ -122,6 +129,7 @@ final class Day10 {
                         }
                         break;
                     case ">":
+                        assert stack.peek() != null;
                         if (stack.peek().equals("<")) {
                             stack.pop();
                         } else {
@@ -135,16 +143,21 @@ final class Day10 {
                 long result = 0;
                 while (!stack.isEmpty()) {
                     String popped = stack.pop();
-                    if (popped.equals("(")) {
-                        result = result * 5 + 1;
-                    } else if (popped.equals("[")) {
-                        result = result * 5 + 2;
-                    } else if (popped.equals("{")) {
-                        result = result * 5 + 3;
-                    } else if (popped.equals("<")) {
-                        result = result * 5 + 4;
-                    } else {
-                        throw new RuntimeException("OFF");
+                    switch (popped) {
+                        case "(":
+                            result = result * 5 + 1;
+                            break;
+                        case "[":
+                            result = result * 5 + 2;
+                            break;
+                        case "{":
+                            result = result * 5 + 3;
+                            break;
+                        case "<":
+                            result = result * 5 + 4;
+                            break;
+                        default:
+                            throw new RuntimeException("OFF");
                     }
                 }
                 results.add(result);
