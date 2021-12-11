@@ -9,9 +9,9 @@ final class Energy {
         this(level, false);
     }
 
-    Energy(int level, boolean flashed) {
+    Energy(int level, boolean discharged) {
         this.level = level;
-        this.discharged = flashed;
+        this.discharged = discharged;
     }
 
     int getLevel() {
