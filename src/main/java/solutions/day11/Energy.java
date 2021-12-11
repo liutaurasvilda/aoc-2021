@@ -18,11 +18,11 @@ final class Energy {
         return level;
     }
 
-    boolean isFlashed() {
+    boolean discharged() {
         return flashed;
     }
 
-    Energy setFlashed() {
+    Energy discharge() {
         return new Energy(this.level, true);
     }
 }

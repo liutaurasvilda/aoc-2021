@@ -37,7 +37,7 @@ final class Day11 {
     }
 
     private static void step(Map<Location, Energy> energyLevels, AtomicInteger flashCounts) {
-        increase(energyLevels);
+        increaseEnergy(energyLevels);
         while (overEnergy(energyLevels)) {
             flash(energyLevels, flashCounts);
             increaseIlluminated(energyLevels);
@@ -58,20 +58,20 @@ final class Day11 {
 
     private static void increaseIlluminated(Map<Location, Energy> energyLevels) {
         energyLevels.entrySet().stream()
-                .filter(e -> !e.getValue().isFlashed() && e.getValue().getLevel() == 0)
+                .filter(e -> !e.getValue().discharged() && e.getValue().getLevel() == 0)
                 .forEach(e -> { e.getKey().neighbourhood().stream()
                         .filter(energyLevels::containsKey)
-                        .filter(f -> energyLevels.get(f).getLevel() != 0)
-                        .forEach(f -> increase(energyLevels, f));
-                    setFlashed(energyLevels, e.getKey());
+                        .filter(l -> energyLevels.get(l).getLevel() != 0)
+                        .forEach(l -> increaseEnergy(energyLevels, l));
+                    discharge(energyLevels, e.getKey());
                 });
     }
 
-    private static void increase(Map<Location, Energy> energyLevels) {
-        energyLevels.keySet().forEach(k -> increase(energyLevels, k));
+    private static void increaseEnergy(Map<Location, Energy> energyLevels) {
+        energyLevels.keySet().forEach(k -> increaseEnergy(energyLevels, k));
     }
 
-    private static void increase(Map<Location, Energy> energyLevels, Location loc) {
+    private static void increaseEnergy(Map<Location, Energy> energyLevels, Location loc) {
         energyLevels.put(loc, new Energy(energyLevels.getOrDefault(loc, new Energy(0)).getLevel() + 1));
     }
 
@@ -79,8 +79,8 @@ final class Day11 {
         energyLevels.put(loc, new Energy(0));
     }
 
-    private static void setFlashed(Map<Location, Energy> energyLevels, Location loc) {
-        energyLevels.put(loc, energyLevels.get(loc).setFlashed());
+    private static void discharge(Map<Location, Energy> energyLevels, Location loc) {
+        energyLevels.put(loc, energyLevels.get(loc).discharge());
     }
 
     private static Map<Location, Energy> getEnergyLevels(List<List<Integer>> input) {
