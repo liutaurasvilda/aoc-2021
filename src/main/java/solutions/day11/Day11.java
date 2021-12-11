@@ -51,7 +51,7 @@ final class Day11 {
     private static void flash(Map<Location, Energy> energyLevels, AtomicInteger flashCount) {
         energyLevels.entrySet().stream()
                 .filter(e -> e.getValue().getLevel() > 9)
-                .forEach(e -> { reset(energyLevels, e.getKey());
+                .forEach(e -> { resetEnergy(energyLevels, e.getKey());
                     flashCount.getAndIncrement();
                 });
     }
@@ -75,7 +75,7 @@ final class Day11 {
         energyLevels.put(loc, new Energy(energyLevels.getOrDefault(loc, new Energy(0)).getLevel() + 1));
     }
 
-    private static void reset(Map<Location, Energy> energyLevels, Location loc) {
+    private static void resetEnergy(Map<Location, Energy> energyLevels, Location loc) {
         energyLevels.put(loc, new Energy(0));
     }
 
