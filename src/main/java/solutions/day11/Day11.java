@@ -19,8 +19,9 @@ final class Day11 {
         Map<Location, Energy> energyLevels = getEnergyLevels(input);
         AtomicInteger flashCount = new AtomicInteger();
         AtomicInteger stepsCount = new AtomicInteger();
-        while (stepsCount.getAndIncrement() < 100) {
+        while (stepsCount.get() < 100) {
             step(energyLevels, flashCount);
+            stepsCount.getAndIncrement();
         }
         return flashCount.get();
     }
