@@ -12,21 +12,24 @@ final class Day11 {
 
     public static void main(String[] args) {
         List<List<Integer>> input = ResourceReader.asIntList("day11.txt");
-        System.out.println(part1(input, 100));
+        System.out.println(part1(input, 500));
     }
 
     private static long part1(List<List<Integer>> input, int steps) {
         Map<Location, Energy> energyLevels = mapEnergyLevels(input);
         AtomicLong flashCounts = new AtomicLong();
-        IntStream.range(0, steps).forEach(i -> step(energyLevels, flashCounts));
+        IntStream.range(0, steps).forEach(i -> step(energyLevels, flashCounts, i));
         return flashCounts.longValue();
     }
 
-    private static void step(Map<Location, Energy> energyLevels, AtomicLong flashCounts) {
+    private static void step(Map<Location, Energy> energyLevels, AtomicLong flashCounts, int step) {
         increaseLevels(energyLevels);
         while (overEnergy(energyLevels)) {
             flash(energyLevels, flashCounts);
             increaseAffectedLevels(energyLevels);
+        }
+        if (energyLevels.values().stream().allMatch(e -> e.getLevel() == 0)) {
+            System.out.println("Flashed all: " + (step + 1));
         }
     }
 
