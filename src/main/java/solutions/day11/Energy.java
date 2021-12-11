@@ -2,8 +2,8 @@ package solutions.day11;
 
 final class Energy {
 
-    private int level;
-    private boolean flashed;
+    private final int level;
+    private final boolean flashed;
 
     Energy(int level) {
         this(level, false);
