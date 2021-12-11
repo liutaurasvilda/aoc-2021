@@ -15,7 +15,7 @@ final class Location {
         this.columnIndex = columnIndex;
     }
 
-    public static Location of(int rowIndex, int columnIndex) {
+    static Location of(int rowIndex, int columnIndex) {
         return new Location(rowIndex, columnIndex);
     }
 

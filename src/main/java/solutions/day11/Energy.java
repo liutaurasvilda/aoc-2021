@@ -14,15 +14,15 @@ final class Energy {
         this.flashed = flashed;
     }
 
-    public int getLevel() {
+    int getLevel() {
         return level;
     }
 
-    public boolean isFlashed() {
+    boolean isFlashed() {
         return flashed;
     }
 
-    public Energy setFlashed() {
+    Energy setFlashed() {
         return new Energy(this.level, true);
     }
 }
