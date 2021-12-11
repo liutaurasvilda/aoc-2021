@@ -154,10 +154,6 @@ final class Day10 {
     }
 
     private static void register(Map<String, Integer> counts, String k) {
-        if (counts.containsKey(k)) {
-            counts.put(k, counts.get(k) + 1);
-        } else {
-            counts.put(k, 1);
-        }
+        counts.put(k, counts.getOrDefault(k, 0) + 1);
     }
 }

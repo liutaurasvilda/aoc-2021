@@ -47,10 +47,6 @@ final class Day06 {
     }
 
     private static void updateCounts(Map<Integer, Long> counts, int k, long v) {
-        if (counts.containsKey(k)) {
-            counts.put(k, counts.get(k) + v);
-        } else {
-            counts.put(k, v);
-        }
+        counts.put(k, counts.getOrDefault(k, 0L) + v);
     }
 }
