@@ -2,7 +2,7 @@ package solutions.day11;
 
 import util.ResourceReader;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -85,7 +85,7 @@ final class Day11 {
     }
 
     private static Map<Location, Energy> getEnergyLevels(List<List<Integer>> input) {
-        Map<Location, Energy> energyLevels = new LinkedHashMap<>();
+        Map<Location, Energy> energyLevels = new HashMap<>();
         for (int i = 0; i < input.size(); i++) {
             for (int j = 0; j < input.get(i).size(); j++) {
                 energyLevels.put(Location.of(i, j), new Energy(input.get(i).get(j)));
